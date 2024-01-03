@@ -37,6 +37,13 @@
     font-size: 28px;
 }
 
+.currentCreepHP {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    font-size: 28px;
+    text-align: center;
+}
+
 .click__animation {
     position: absolute;
     left: 50%;
