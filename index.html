@@ -8,22 +8,26 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/stylesheet.css">
-    <script src="js/script.js" defer></script>
+    <script src="js/script.js" defer type="module"></script>
 </head>
 
 <body>
 
     <div class="content__wrapper">
         <div class="play__area">
-            <div class="current__gold__wrapper">
+            <div class="info__wrapper">
                 <p class="current__gold">0</p>
+                <p class="current_creep__bounty">X</p>
+                <p class="clicks__per__second">X</p>
             </div>
             <div class="click__obj">
                 <p class="currentCreepHP">X</p>
-                <img src="img/creep.png" alt="">
+                <img class="creep__image" src="img/creeps/radiantNormalMelee.png" alt="">
 
             </div>
             <img onclick="" class="click__animation" src="img/gold.png" alt="">
+
+            <button class="load__next__creep">NEXT CREEP</button>
         </div>
     </div>
 

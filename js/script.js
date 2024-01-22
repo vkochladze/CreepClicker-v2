@@ -1,28 +1,86 @@
+import { Creep } from "./creep.js";
+
 let currentGoldVar = 0;
-let currentCreepMaxHP = 2;
-let currentCreepHP = currentCreepMaxHP;
-let currentCreepBounty = 1;
 let currentDMG = 1;
 let goldMultiplier = 1;
+
+//creepVars
+let currentCreepMaxHP;
+let currentCreepHP = currentCreepMaxHP;
+// let currentCreepBounty;
+// let currentCreepIMG;
 
 let currentGoldDisplay = document.querySelector(".current__gold");
 let clickObj = document.querySelector(".click__obj");
 let clickAnimation = document.querySelector(".click__animation");
 let displayCurrentCreepHP = document.querySelector(".currentCreepHP");
+let loadNextCreepBTN = document.querySelector(".load__next__creep");
+let creepImage = document.querySelector(".creep__image");
 
-displayCurrentCreepHP.textContent =
-  "HP: " + currentCreepHP + " / " + currentCreepMaxHP;
+const creeps = [
+  new Creep(
+    0,
+    "normalMelee",
+    "default normal melee creep",
+    0,
+    "img/creeps/adiantNormalMelee.png",
+    2,
+    1
+  ),
+  new Creep(
+    1,
+    "normalRanged",
+    "normal ranged creep",
+    10,
+    "img/creeps/radiantNormalRanged.png",
+    4,
+    5
+  ),
+  new Creep(
+    2,
+    "superMelee",
+    "super melee creep",
+    50,
+    "img/creeps/radiantSuperRanged.png",
+    10,
+    10
+  ),
+];
+
+let currentCreep = new Creep(
+  creeps[0].creepID,
+  creeps[0].name,
+  creeps[0].description,
+  creeps[0].cost,
+  creeps[0].img,
+  creeps[0].maxHP,
+  creeps[0].bounty
+);
+
+function renderNextCreepCost() {
+  // if (currentCreep.creepID < creeps.length - 1) {
+  //   let nextCreepCost = creeps[currentCreep.creepID + 1].cost;
+  //   loadNextCreepBTN.textContent = `NEXT CREEP COST: ${nextCreepCost}`;
+  // } else {
+  //   console.error("creep array limit reached");
+  // }
+
+  if (checkCreepArrayLimitReached() == false) {
+    let nextCreepCost = creeps[currentCreep.creepID + 1].cost;
+    loadNextCreepBTN.textContent = `NEXT CREEP COST: ${nextCreepCost}`;
+  } else {
+  }
+}
 
 function creepClick() {
   //Main gold gain formula
   currentCreepHP = currentCreepHP - currentDMG;
 
   if (currentCreepHP <= 0) {
-    currentGoldVar = (currentGoldVar + currentCreepBounty) * goldMultiplier;
-    currentCreepHP = currentCreepMaxHP;
+    currentGoldVar = (currentGoldVar + currentCreep.bounty) * goldMultiplier;
+    currentCreepHP = currentCreep.maxHP;
   }
-  displayCurrentCreepHP.textContent =
-    "HP: " + currentCreepHP + " / " + currentCreepMaxHP;
+  renderCurrentCreepHP();
 
   currentGoldDisplay.textContent = currentGoldVar;
   //   clickAnimation.classList.add("click_animation_play");
@@ -35,18 +93,67 @@ clickObj.addEventListener("click", () => {
   creepClick();
 });
 
-// creep object template
-/* creep {
-  ID: X // this is the creep's unique identifier
-  maxHP: X; // this is the base number of hits (i.e., without modifiers) it takes to kill the creep 
-  bounty: X; //this is the base amount of gold (i.e., without modifiers) killing the creep grants 
+loadNextCreepBTN.addEventListener("click", () => {
+  loadNextCreep();
+});
+
+function renderCurrentCreepHP() {
+  displayCurrentCreepHP.textContent =
+    "HP: " + currentCreepHP + " / " + currentCreep.maxHP;
 }
- */
 
-// shop item types
-/* 
+function loadCreep() {
+  currentCreepMaxHP = currentCreep.maxHP;
+  currentCreepHP = currentCreep.maxHP;
+  // currentCreepBounty = currentCreep.bounty;
+  // currentCreepIMG = currentCreep.img;
 
-1. Creep - has higher HP than the previous tier creep, but also grants more gold (more gold per click, i.e., first tier creep has 2HP and grants 1 gold (0.5 gold/click), secodn tier creep has 4HP and grants 4 gold (1 gold/click))
-2. Weapon - increases base 'currentDMG'
-3. {itemTypeName} - adds auto DPS (damages the creep every X seconds for Y damage)
-*/
+  renderCurrentCreepHP();
+  console.log("creep loaded");
+  console.log(currentCreep);
+  console.log(creeps);
+}
+
+function loadNextCreep() {
+  if (checkCreepArrayLimitReached() == false) {
+    console.log("currentGoldVar: " + currentGoldVar);
+    console.log("next creep cost: " + creeps[currentCreep.creepID + 1].cost);
+
+    if (currentGoldVar >= creeps[currentCreep.creepID + 1].cost) {
+      currentGoldVar = currentGoldVar - creeps[currentCreep.creepID + 1].cost;
+      currentGoldDisplay.textContent = currentGoldVar;
+
+      currentCreep.creepID = creeps[currentCreep.creepID + 1].creepID;
+      currentCreep.name = creeps[currentCreep.creepID].name;
+      currentCreep.description = creeps[currentCreep.creepID].description;
+      currentCreep.cost = creeps[currentCreep.creepID].cost;
+      currentCreep.img = creeps[currentCreep.creepID].img;
+      currentCreep.maxHP = creeps[currentCreep.creepID].maxHP;
+      currentCreep.bounty = creeps[currentCreep.creepID].bounty;
+
+      currentCreepHP = currentCreep.maxHP;
+      creepImage.src = currentCreep.img;
+      renderCurrentCreepHP();
+
+      console.log("next creep loaded");
+      console.log(currentCreep);
+      renderNextCreepCost();
+    } else {
+      console.error("not enough gold");
+    }
+  } else {
+    console.error("creep array limit reached");
+  }
+}
+
+function checkCreepArrayLimitReached() {
+  if (currentCreep.creepID < creeps.length - 1) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+loadCreep();
+renderNextCreepCost();
+renderCurrentCreepHP();

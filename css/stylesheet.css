@@ -18,6 +18,15 @@
     flex-direction: column;
 }
 
+.creep__image {
+    height: 186px;
+    width: 200xp;
+}
+
+.click__obj {
+    position: absolute;
+}
+
 /* .click__obj:active+.click__animation {
     animation: clickAnimation .2s forwards;
 } */
@@ -26,9 +35,12 @@
     scale: 95%;
 }
 
-.current__gold__wrapper {
+.info__wrapper {
     align-self: flex-start;
     padding: 2% 0 0 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    font-size: 28px;
 }
 
 .current__gold {
@@ -51,6 +63,11 @@
     /* animation: clickAnimation .2s forwards; */
 }
 
+.load__next__creep {
+    padding: 15px;
+    height: 500%;
+    width: 30%;
+}
 
 
 .click__animation_play {
