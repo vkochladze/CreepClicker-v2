@@ -33,7 +33,7 @@ const creeps = [
     "normalMelee",
     "default normal melee creep",
     0,
-    "/src/img/creeps/adiantNormalMelee.png",
+    "/img/creeps/adiantNormalMelee.png",
     2,
     2
   ),
@@ -42,7 +42,7 @@ const creeps = [
     "normalRanged",
     "normal ranged creep",
     10,
-    "/src/img/creeps/radiantNormalRanged.png",
+    "/img/creeps/radiantNormalRanged.png",
     4,
     10
   ),
@@ -51,7 +51,7 @@ const creeps = [
     "superMelee",
     "super melee creep",
     50,
-    "/src/img/creeps/radiantSuperRanged.png",
+    "/img/creeps/radiantSuperRanged.png",
     10,
     20
   ),
