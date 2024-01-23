@@ -7,7 +7,7 @@
 
 .play__area {
     display: flex;
-    background: url("../img/Creep-backdrop.png");
+    background: url("/src/img/Creep-backdrop.png");
     background-repeat: no-repeat;
     background-size: cover;
     height: 528px;
