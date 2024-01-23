@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreepClicker v2</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="output.css">
+    <script src="script.js" defer type="module"></script>
+</head>
+
+<body>
+
+    <div class="content__wrapper">
+        <div class="play__area">
+            <div class="info__wrapper">
+                <p class="current__gold">Gold: 0</p>
+                <p class="current_creep__bounty">Creep bounty: X</p>
+                <p class="clicks__per__second">Clicks per second (CPS): X</p>
+                <p class="current__damage">Damage: X</p>
+            </div>
+            <div class="click__obj">
+                <p class="currentCreepHP">X</p>
+                <img class="creep__image" src="/src/img/creeps/radiantNormalMelee.png" alt="">
+
+            </div>
+            <img onclick="" class="click__animation" src="/src/img/gold.png" alt="">
+
+            <button
+                class="load__next__creep rounded-md bg-gray-400 text-sm font-semibold leading-6 text-white shadow-sm">NEXT
+                CREEP</button>
+        </div>
+
+        <div class="shop__area">
+            <div
+                class="weapon__shop text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                <h2 class="shop__title">Weapons that give click damage</h2>
+
+
+                <div class="weapon__1">
+                    <p class="weapon__name">Weapon 1</p>
+                    <img src="" class="weapon__icon" alt="">
+                    <p class="weapon__cost">X</p>
+                    <button value="0" type="button"
+                        class="buy__weapon inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        BUY
+                        <span
+                            class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
+                            0
+                        </span>
+                    </button>
+                </div>
+
+                <div class="weapon__1">
+                    <p class="weapon__name">Weapon 2</p>
+                    <img src="" class="weapon__icon" alt="">
+                    <p class="weapon__cost">X</p>
+                    <button value="1" type="button"
+                        class="buy__weapon inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        BUY
+                        <span
+                            class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
+                            0
+                        </span>
+                    </button>
+                </div>
+                <div class="weapon__1">
+                    <p class="weapon__name">Weapon 3</p>
+                    <img src="" class="weapon__icon" alt="">
+                    <p class="weapon__cost">X</p>
+                    <button value="2" type="button"
+                        class="buy__weapon inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        BUY
+                        <span
+                            class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
+                            0
+                        </span>
+                    </button>
+                </div>
+
+            </div>
+
+            <div
+                class="item__shop text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                <h2 class="shop__title">Items that give clicks per second (CPS)</h2>
+
+                <div class="item__1">
+                    <p class="item__name">Item 1</p>
+                    <img src="" class="item__icon" alt="">
+                    <p class="item__cost">X</p>
+                    <button value="0" type="button"
+                        class="buy__item inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        BUY
+                        <span
+                            class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
+                            0
+                        </span>
+                    </button>
+                </div>
+
+                <div class="item__1">
+                    <p class="item__name">Item 2</p>
+                    <img src="" class="item__icon" alt="">
+                    <p class="item__cost">X</p>
+                    <button value="1" type="button"
+                        class="buy__item inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        BUY
+                        <span
+                            class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
+                            0
+                        </span>
+                    </button>
+                </div>
+                <div class="item__1">
+                    <p class="item__name">Item 3</p>
+                    <img src="" class="item__icon" alt="">
+                    <p class="item__cost">X</p>
+                    <button value="2" type="button"
+                        class="buy__item inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        BUY
+                        <span
+                            class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
+                            0
+                        </span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
