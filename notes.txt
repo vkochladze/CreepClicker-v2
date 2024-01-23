@@ -1,0 +1,20 @@
+// creep object template
+/* creep {
+  creepID: X // this is the creep's unique identifier
+  name: X
+  Description: X //
+  cost: X // 
+  img: URL('X') // 
+  maxHP: X; // this is the base number of hits (i.e., without modifiers) it takes to kill the creep 
+  bounty: X; //this is the base amount of gold (i.e., without modifiers) killing the creep grants 
+
+}
+ */
+
+// shop item types
+/* 
+
+1. Creep - has higher HP than the previous tier creep, but also grants more gold (more gold per click, i.e., first tier creep has 2HP and grants 1 gold (0.5 gold/click), secodn tier creep has 4HP and grants 4 gold (1 gold/click))
+2. Weapon - increases base 'currentDMG'
+3. {itemTypeName} - adds auto DPS (damages the creep every X seconds for Y damage)
+*/
