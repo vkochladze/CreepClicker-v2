@@ -53,7 +53,7 @@ body {
 
 .current__gold {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
+    color: rgb(255, 224, 49);
     font-size: 28px;
 }
 
@@ -177,6 +177,7 @@ body {
     z-index: 100;
     padding: 3%;
     box-shadow: 0 0 200px -15px #db561986 !important;
+    transition: all 1s;
 }
 
 .popup__darkener {
