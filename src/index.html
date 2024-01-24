@@ -13,12 +13,39 @@
 
 <body>
 
+    <div class="popup bg-white rounded-lg shadow dark:bg-gray-700">
+        <img class="popup__image" src="img/popup_logo.png" alt="">
+        <h2>How To Play</h2>
+        <p>Click the creeps to deal damage. When a creep's HP reaches 0, it grants gold based on the current creep's
+            bounty.
+        </p>
+
+        <h3>Use the gold gained to:
+        </h3>
+        <ul>
+            <li><span class="popup__bold__text">Upgrade creeps.</span> Upgraded creeps have a higher bounty, and a
+                higher number of hitpoints.
+            </li>
+            <li><span class="popup__bold__text">Buy weapons:</span> Buying weapons increases the damage dealt per click.
+            </li>
+            <li><span class="popup__bold__text">Buy items:</span> Buying items grants automatic damage per second (DPS).
+            </li>
+        </ul>
+
+        <button type="button"
+            class="popup__continue__buton inline-block rounded  px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal">
+            Continue
+        </button>
+    </div>
+
+    <div class="popup__darkener"></div>
+
     <div class="content__wrapper">
         <div class="play__area">
             <div class="info__wrapper">
                 <p class="current__gold">Gold: 0</p>
                 <p class="current_creep__bounty">Creep bounty: X</p>
-                <p class="clicks__per__second">Clicks per second (CPS): X</p>
+                <p class="clicks__per__second">Damage per second (DPS): X</p>
                 <p class="current__damage">Damage: X</p>
             </div>
             <div class="click__obj">
@@ -28,9 +55,14 @@
             </div>
             <img onclick="" class="click__animation" src="img/gold.png" alt="">
 
+            <button class="how__to__play__btn bg-red-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase rounded">HOW TO
+                PLAY</button>
+
             <button
                 class="load__next__creep rounded-md bg-gray-400 text-sm font-semibold leading-6 text-white shadow-sm">NEXT
                 CREEP</button>
+
+
         </div>
 
         <div class="shop__area">
@@ -40,91 +72,114 @@
 
 
                 <div class="weapon__1">
-                    <p class="weapon__name">Weapon 1</p>
-                    <img src="" class="weapon__icon" alt="">
-                    <p class="weapon__cost">X</p>
-                    <button value="0" type="button"
-                        class="buy__weapon inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        BUY
-                        <span
-                            class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
-                            0
-                        </span>
-                    </button>
+                    <!-- <p class="weapon__name">Quelling Blade</p> -->
+                    <img src="img/weapons/quelling_blade.png" class="weapon__icon" alt="">
+
+                    <div class="weapons__right__wrapper">
+
+                        <button value="0" type="button"
+                            class="buy__weapon inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            BUY
+                            <span
+                                class="weapon__owned inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
+                                0
+                            </span>
+                        </button>
+                        <p class="weapon__cost">Cost: 10G</p>
+                    </div>
                 </div>
 
                 <div class="weapon__1">
-                    <p class="weapon__name">Weapon 2</p>
-                    <img src="" class="weapon__icon" alt="">
-                    <p class="weapon__cost">X</p>
-                    <button value="1" type="button"
-                        class="buy__weapon inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        BUY
-                        <span
-                            class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
-                            0
-                        </span>
-                    </button>
+                    <!-- <p class="weapon__name">Javelin</p> -->
+                    <img src="img/weapons/javelin.png" class="weapon__icon" alt="">
+                    <div class="weapons__right__wrapper">
+                        <button value="1" type="button"
+                            class="buy__weapon inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            BUY
+                            <span
+                                class="weapon__owned inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
+                                0
+                            </span>
+                        </button>
+                        <p class="weapon__cost">Cost: 20G</p>
+                    </div>
+
                 </div>
                 <div class="weapon__1">
-                    <p class="weapon__name">Weapon 3</p>
-                    <img src="" class="weapon__icon" alt="">
-                    <p class="weapon__cost">X</p>
-                    <button value="2" type="button"
-                        class="buy__weapon inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        BUY
-                        <span
-                            class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
-                            0
-                        </span>
-                    </button>
+                    <!-- <p class="weapon__name">Broadsword</p> -->
+                    <img src="img/weapons/broadsword.png" class="weapon__icon" alt="">
+                    <div class="weapons__right__wrapper">
+
+                        <button value="2" type="button"
+                            class="buy__weapon inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            BUY
+                            <span
+                                class="weapon__owned inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
+                                0
+                            </span>
+                        </button>
+                        <p class="weapon__cost">Cost: 30G</p>
+                    </div>
+
                 </div>
 
             </div>
 
             <div
                 class="item__shop text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-                <h2 class="shop__title">Items that give clicks per second (CPS)</h2>
+                <h2 class="shop__title">Items that give damage per second (DPS)</h2>
 
                 <div class="item__1">
-                    <p class="item__name">Item 1</p>
-                    <img src="" class="item__icon" alt="">
-                    <p class="item__cost">X</p>
-                    <button value="0" type="button"
-                        class="buy__item inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        BUY
-                        <span
-                            class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
-                            0
-                        </span>
-                    </button>
+                    <img src="img/items/quarterstaff.png" class="item__icon" alt="">
+
+                    <div class="items__right__wrapper">
+                        <button value="0" type="button"
+                            class="buy__item inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            BUY
+                            <span
+                                class="item__owned inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
+                                0
+                            </span>
+                        </button>
+                        <p class="item__cost">Cost: 10G</p>
+                    </div>
+
+
                 </div>
 
                 <div class="item__1">
-                    <p class="item__name">Item 2</p>
-                    <img src="" class="item__icon" alt="">
-                    <p class="item__cost">X</p>
-                    <button value="1" type="button"
-                        class="buy__item inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        BUY
-                        <span
-                            class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
-                            0
-                        </span>
-                    </button>
+                    <img src="img/items/oblivion_staff.png" class="item__icon" alt="">
+                    <div class="items__right__wrapper">
+
+                        <button value="1" type="button"
+                            class="buy__item inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            BUY
+                            <span
+                                class="item__owned inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
+                                0
+                            </span>
+                        </button>
+                        <p class="item__cost">Cost: 20G</p>
+                    </div>
+
+
                 </div>
                 <div class="item__1">
-                    <p class="item__name">Item 3</p>
-                    <img src="" class="item__icon" alt="">
-                    <p class="item__cost">X</p>
-                    <button value="2" type="button"
-                        class="buy__item inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        BUY
-                        <span
-                            class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
-                            0
-                        </span>
-                    </button>
+                    <img src="img/items/orchid.png" class="item__icon" alt="">
+                    <div class="items__right__wrapper">
+
+                        <button value="2" type="button"
+                            class="buy__item inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            BUY
+                            <span
+                                class="item__owned inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">
+                                0
+                            </span>
+                        </button>
+                        <p class="item__cost">Cost: 30G</p>
+                    </div>
+
+
                 </div>
 
             </div>

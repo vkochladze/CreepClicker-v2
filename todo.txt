@@ -1,0 +1,17 @@
+3. better UI for top-left stats
+5. add progress bar-like animation for next creep button (progress bar fill = current gold / cost)
+6. animated/functional clock
+8. onclick animation
+9. save game functionality
+11. upgrade for each weapon/item
+12. increment item/weapon cost with each purchase
+13. 
+14. 
+15. 
+
+//done
+1. add item functionality (CPS) // done
+2. add names and icons for weapons and items // done
+10. move item cost to the rightmost side // done
+count of purchased items/weapons in buy button (add logic to increment count in object from buy function)
+7. popup instructions on page load

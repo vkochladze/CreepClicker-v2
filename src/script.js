@@ -17,7 +17,10 @@ let displayCurrentCreepHP = document.querySelector(".currentCreepHP");
 let loadNextCreepBTN = document.querySelector(".load__next__creep");
 let creepImage = document.querySelector(".creep__image");
 let buyWeaponBTN = document.querySelectorAll(".buy__weapon");
-let buyItemBTN = document.querySelector(".buy__item");
+let buyItemBTN = document.querySelectorAll(".buy__item");
+let popup__continue__button = document.querySelector(".popup__continue__buton");
+let how_to_play_button = document.querySelector(".how__to__play__btn");
+let info_wrapper = document.querySelector(".info__wrapper");
 
 //display vars
 let currentGoldDisplay = document.querySelector(".current__gold");
@@ -26,6 +29,8 @@ let currentCreepBountyDisplay = document.querySelector(
 );
 let currentCPSDisplay = document.querySelector(".clicks__per__second");
 let currentDMGDisplay = document.querySelector(".current__damage");
+let weaponsOwned = document.querySelectorAll(".weapon__owned");
+let itemsOwned = document.querySelectorAll(".item__owned");
 
 const creeps = [
   new Creep(
@@ -33,7 +38,7 @@ const creeps = [
     "normalMelee",
     "default normal melee creep",
     0,
-    "/img/creeps/adiantNormalMelee.png",
+    "img/creeps/adiantNormalMelee.png",
     2,
     2
   ),
@@ -42,7 +47,7 @@ const creeps = [
     "normalRanged",
     "normal ranged creep",
     10,
-    "/img/creeps/radiantNormalRanged.png",
+    "img/creeps/radiantNormalRanged.png",
     4,
     10
   ),
@@ -51,22 +56,49 @@ const creeps = [
     "superMelee",
     "super melee creep",
     50,
-    "/img/creeps/radiantSuperRanged.png",
+    "img/creeps/radiantMegaMelee.png",
     10,
     20
+  ),
+  new Creep(
+    3,
+    "superRanged",
+    "mega ranged creep",
+    500,
+    "img/creeps/radiantSuperRanged.png",
+    50,
+    50
+  ),
+  new Creep(
+    4,
+    "iceQueen",
+    "ice Queen creep",
+    5000,
+    "img/creeps/iceQueen.png",
+    100,
+    100
+  ),
+  new Creep(
+    5,
+    "Troll",
+    "troll creep",
+    50000,
+    "img/creeps/trollCreep.png",
+    1000,
+    1000
   ),
 ];
 
 const weapons = [
-  new Weapon(0, "firstWeaponName", "firstWeaponDesc", 10, "imgURLHere", 1, 0),
-  new Weapon(1, "secondWeaponName", "secondWeaponDesc", 20, "imgURLHere", 4, 0),
-  new Weapon(2, "thirdWeaponName", "thirdWeaponDesc", 30, "imgURLHere", 8, 0),
+  new Weapon(0, "Quellingblade", "firstWeaponDesc", 10, "imgURLHere", 1, 0),
+  new Weapon(1, "Javelin", "secondWeaponDesc", 20, "imgURLHere", 4, 0),
+  new Weapon(2, "Broadsword", "thirdWeaponDesc", 30, "imgURLHere", 8, 0),
 ];
 
 const items = [
-  new Item(0, "firstItemName", "firstItemDesc", 100, "imgURLHere", 1, 0),
-  new Item(1, "secondItemName", "secondItemDesc", 100, "imgURLHere", 1, 0),
-  new Item(2, "thirdeaponName", "thirdItemDesc", 100, "imgURLHere", 1, 0),
+  new Item(0, "Quarterstaff", "firstItemDesc", 10, "imgURLHere", 1, 0),
+  new Item(1, "Oblivion Staff", "secondItemDesc", 20, "imgURLHere", 2, 0),
+  new Item(2, "Orchid Malevolence", "thirdItemDesc", 30, "imgURLHere", 3, 0),
 ];
 
 let currentCreep = new Creep(
@@ -91,7 +123,7 @@ function renderNextCreepCost() {
 
 function creepClick() {
   //Main gold gain formula
-  currentCreepHP = currentCreepHP - currentDMG;
+  currentCreepHP -= currentDMG;
 
   if (currentCreepHP <= 0) {
     currentGoldVar = (currentGoldVar + currentCreep.bounty) * goldMultiplier;
@@ -105,6 +137,27 @@ function creepClick() {
   clickAnimation.offsetWidth;
   clickAnimation.style.animation = "clickAnimation .2s forwards";
   checkNextCreepBTNGold();
+}
+
+function creepClickCPS() {
+  if (currentCPS > 0) {
+    currentCreepHP -= currentCPS;
+
+    if (currentCreepHP <= 0) {
+      currentGoldVar = (currentGoldVar + currentCreep.bounty) * goldMultiplier;
+      currentCreepHP = currentCreep.maxHP;
+    }
+
+    renderCurrentCreepHP();
+    renderCurrentGold();
+    //   clickAnimation.classList.add("click_animation_play");
+    clickAnimation.style.animation = "";
+    clickAnimation.offsetWidth;
+    clickAnimation.style.animation = "clickAnimation .2s forwards";
+    checkNextCreepBTNGold();
+
+    console.log("clicked for: " + currentCPS + " damage");
+  }
 }
 
 clickObj.addEventListener("click", () => {
@@ -208,7 +261,7 @@ function renderCurrentCreepBounty() {
 }
 
 function renderCurrentCPS() {
-  currentCPSDisplay.textContent = "Clicks per second (CPS): " + currentCPS;
+  currentCPSDisplay.textContent = "Damage per second (DPS): " + currentCPS;
 }
 
 function renderCurrentDMG() {
@@ -220,7 +273,10 @@ function buyWeapon(buttonValue) {
     if (weapons[i].weaponID == buttonValue) {
       if (currentGoldVar >= weapons[i].cost) {
         currentGoldVar = currentGoldVar - weapons[i].cost;
-        currentDMG = currentDMG + weapons[i].damage;
+        currentDMG += weapons[i].damage;
+
+        weapons[i].numberOwned++;
+
         renderCurrentGold();
         renderCurrentDMG();
 
@@ -234,14 +290,70 @@ function buyWeapon(buttonValue) {
   }
 }
 
+function buyItem(buttonValue) {
+  for (let i = 0; i <= items.length; i++) {
+    if (items[i].itemID == buttonValue) {
+      if (currentGoldVar >= items[i].cost) {
+        currentGoldVar = currentGoldVar - items[i].cost;
+        currentCPS += items[i].cps;
+
+        renderCurrentGold();
+        renderCurrentCPS();
+
+        items[i].numberOwned++;
+        itemsOwned[i].textContent = items[i].numberOwned;
+
+        console.log("bought " + items[i].name);
+        return items[i];
+      } else {
+        console.error("not enough gold to buy " + items[i].name);
+        return items[i];
+      }
+    }
+  }
+}
+
 for (let i = 0; i < buyWeaponBTN.length; i++) {
   buyWeaponBTN[i].addEventListener("click", () => {
     let buttonValue = buyWeaponBTN[i].value;
+
+    weaponsOwned[i].textContent = weapons[i].numberOwned;
 
     console.log(buttonValue);
     buyWeapon(buttonValue);
   });
 }
+
+for (let i = 0; i < buyItemBTN.length; i++) {
+  buyItemBTN[i].addEventListener("click", () => {
+    let buttonValue = buyItemBTN[i].value;
+
+    console.log(buttonValue);
+    buyItem(buttonValue);
+  });
+}
+
+function displayPopup() {
+  document.querySelector(".popup__darkener").style.display = "block";
+  document.querySelector(".popup").style.display = "block";
+  how_to_play_button.style.display = "none";
+  info_wrapper.style.display = "none";
+}
+
+window.addEventListener("load", () => {
+  displayPopup();
+});
+
+popup__continue__button.addEventListener("click", () => {
+  document.querySelector(".popup__darkener").style.display = "none";
+  document.querySelector(".popup").style.display = "none";
+  how_to_play_button.style.display = "block";
+  info_wrapper.style.display = "block";
+});
+
+how_to_play_button.addEventListener("click", () => {
+  displayPopup();
+});
 
 loadCreep();
 renderNextCreepCost();
@@ -249,3 +361,6 @@ renderCurrentCreepHP();
 renderCurrentCPS();
 renderCurrentDMG();
 renderCurrentCreepBounty();
+setInterval(() => {
+  creepClickCPS();
+}, 500);
