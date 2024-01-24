@@ -48,7 +48,7 @@ body {
     top: 10%;
     background-color: rgba(0, 0, 0, 0.445);
     padding: 1%;
-
+    border-radius: 10px;
 }
 
 .current__gold {
