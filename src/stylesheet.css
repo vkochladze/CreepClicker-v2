@@ -176,6 +176,7 @@ body {
     transform: translateX(-50%);
     z-index: 100;
     padding: 3%;
+    box-shadow: 0 0 200px -15px #db561986 !important;
 }
 
 .popup__darkener {
@@ -223,10 +224,18 @@ body {
     display: none;
 }
 
+.popup__continue__buton:hover {
+    background: rgba(255, 84, 31, 0.81) !important;
+}
+
 .how__to__play__btn {
     display: none;
     position: absolute;
     left: 97%;
     top: 110px;
     color: white;
+}
+
+* {
+    transition: all .3s;
 }
