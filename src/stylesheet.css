@@ -23,8 +23,23 @@ body {
 }
 
 .creep__image {
-    height: 186px;
-    width: 200xp;
+    height: 200px;
+    width: 200px;
+    /* background: url("img/creeps/radiantNormalMelee.png"); */
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+}
+
+.creep__image::after {
+    position: absolute;
+    width: 64%;
+    height: 12%;
+    left: 18%;
+    border-radius: 50%;
+    z-index: -1;
+    bottom: 0%;
+    content: "";
+    box-shadow: 0 50px 24px rgba(0, 0, 0, 0.24);
 }
 
 .click__obj {
@@ -66,7 +81,8 @@ body {
 
 .click__animation {
     position: absolute;
-    left: 50%;
+    left: 52%;
+    top: 15%;
     opacity: 0;
     /* animation: clickAnimation .2s forwards; */
 }
@@ -237,6 +253,59 @@ body {
     color: white;
 }
 
-* {
+.save__btn {
+    display: none;
+    position: absolute;
+    left: 80%;
+    top: 110px;
+    color: white;
+}
+
+.save__btn:hover {
+    background: rgb(255, 101, 101);
+}
+
+.delete__save__btn {
+    display: none;
+    position: absolute;
+    left: 79%;
+    top: 170px;
+    color: white;
+    background-color: #19202b !important;
+}
+
+/* * {
+    transition: all .3s;
+} */
+
+.click-animation {
+    animation: animation 0.3s forwards ease-in-out;
+}
+
+@keyframes animation {
+    0% {
+        opacity: 0;
+        transform: scale(0.1);
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+}
+
+.tap-circle {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    z-index: 1000;
+}
+
+button {
     transition: all .3s;
 }

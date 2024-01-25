@@ -21,6 +21,8 @@ let buyItemBTN = document.querySelectorAll(".buy__item");
 let popup__continue__button = document.querySelector(".popup__continue__buton");
 let how_to_play_button = document.querySelector(".how__to__play__btn");
 let info_wrapper = document.querySelector(".info__wrapper");
+let saveBtn = document.querySelector(".save__btn");
+let deleteSaveBtn = document.querySelector(".delete__save__btn");
 
 //display vars
 let currentGoldDisplay = document.querySelector(".current__gold");
@@ -38,7 +40,7 @@ const creeps = [
     "normalMelee",
     "default normal melee creep",
     0,
-    "img/creeps/adiantNormalMelee.png",
+    "img/creeps/radiantNormalMelee.png",
     2,
     2
   ),
@@ -89,13 +91,13 @@ const creeps = [
   ),
 ];
 
-const weapons = [
+let weapons = [
   new Weapon(0, "Quellingblade", "firstWeaponDesc", 10, "imgURLHere", 1, 0),
   new Weapon(1, "Javelin", "secondWeaponDesc", 20, "imgURLHere", 4, 0),
   new Weapon(2, "Broadsword", "thirdWeaponDesc", 30, "imgURLHere", 8, 0),
 ];
 
-const items = [
+let items = [
   new Item(0, "Quarterstaff", "firstItemDesc", 10, "imgURLHere", 1, 0),
   new Item(1, "Oblivion Staff", "secondItemDesc", 20, "imgURLHere", 2, 0),
   new Item(2, "Orchid Malevolence", "thirdItemDesc", 30, "imgURLHere", 3, 0),
@@ -133,9 +135,9 @@ function creepClick() {
 
   renderCurrentGold();
   //   clickAnimation.classList.add("click_animation_play");
-  clickAnimation.style.animation = "";
-  clickAnimation.offsetWidth;
-  clickAnimation.style.animation = "clickAnimation .2s forwards";
+  // clickAnimation.style.animation = "";
+  // clickAnimation.offsetWidth;
+  // clickAnimation.style.animation = "clickAnimation .2s forwards";
   checkNextCreepBTNGold();
 }
 
@@ -177,6 +179,7 @@ function renderCurrentCreepHP() {
 function loadCreep() {
   currentCreepMaxHP = currentCreep.maxHP;
   currentCreepHP = currentCreep.maxHP;
+  creepImage.style.background = `url(${currentCreep.img})`;
   // currentCreepBounty = currentCreep.bounty;
   // currentCreepIMG = currentCreep.img;
 
@@ -204,7 +207,8 @@ function loadNextCreep() {
       currentCreep.bounty = creeps[currentCreep.creepID].bounty;
 
       currentCreepHP = currentCreep.maxHP;
-      creepImage.src = currentCreep.img;
+      // creepImage.src = currentCreep.img;
+      creepImage.style.background = `url(${currentCreep.img})`;
       renderCurrentGold();
       renderCurrentCreepHP();
       renderCurrentCreepBounty();
@@ -301,7 +305,6 @@ function buyItem(buttonValue) {
         renderCurrentCPS();
 
         items[i].numberOwned++;
-        itemsOwned[i].textContent = items[i].numberOwned;
 
         console.log("bought " + items[i].name);
         return items[i];
@@ -328,9 +331,23 @@ for (let i = 0; i < buyItemBTN.length; i++) {
   buyItemBTN[i].addEventListener("click", () => {
     let buttonValue = buyItemBTN[i].value;
 
+    itemsOwned[i].textContent = items[i].numberOwned;
+
     console.log(buttonValue);
     buyItem(buttonValue);
   });
+}
+
+function renderItemsOwned() {
+  for (let i = 0; i < buyItemBTN.length; i++) {
+    itemsOwned[i].textContent = items[i].numberOwned;
+  }
+}
+
+function renderWeaponsOwned() {
+  for (let i = 0; i < buyItemBTN.length; i++) {
+    weaponsOwned[i].textContent = weapons[i].numberOwned;
+  }
 }
 
 function displayPopup() {
@@ -338,6 +355,8 @@ function displayPopup() {
   document.querySelector(".popup").style.display = "block";
   how_to_play_button.style.display = "none";
   info_wrapper.style.display = "none";
+  saveBtn.style.display = "none";
+  deleteSaveBtn.style.display = "none";
 }
 
 window.addEventListener("load", () => {
@@ -349,18 +368,100 @@ popup__continue__button.addEventListener("click", () => {
   document.querySelector(".popup").style.display = "none";
   how_to_play_button.style.display = "block";
   info_wrapper.style.display = "block";
+  saveBtn.style.display = "block";
+  deleteSaveBtn.style.display = "block";
 });
 
 how_to_play_button.addEventListener("click", () => {
   displayPopup();
 });
 
-loadCreep();
-renderNextCreepCost();
-renderCurrentCreepHP();
-renderCurrentCPS();
-renderCurrentDMG();
-renderCurrentCreepBounty();
-setInterval(() => {
-  creepClickCPS();
-}, 500);
+clickObj.addEventListener("click", (e) => {
+  let mouseX = e.pageX - 25;
+  let mouseY = e.pageY - 25;
+  let mousePointer = document.querySelector(".tap-circle");
+
+  mousePointer.style.left = mouseX + "px";
+  mousePointer.style.top = mouseY + "px";
+
+  mousePointer.classList.add("click-animation");
+
+  setTimeout(() => {
+    mousePointer.classList.remove("click-animation");
+  }, 300);
+});
+
+function save() {
+  let saveGameData = {
+    gold: currentGoldVar,
+    damage: currentDMG,
+    dps: currentCPS,
+    creep: currentCreep,
+    items: items,
+    weapons: weapons,
+  };
+
+  localStorage.setItem("save", JSON.stringify(saveGameData));
+
+  console.log(saveGameData.value);
+}
+
+function deleteSave() {
+  localStorage.removeItem("save");
+
+  console.log("save game deleted");
+}
+
+deleteSaveBtn.addEventListener("click", () => {
+  deleteSave();
+});
+
+saveBtn.addEventListener("click", () => {
+  save();
+  console.log("game saved");
+});
+
+function load() {
+  let saveGame = JSON.parse(localStorage.getItem("save"));
+
+  if (saveGame !== null) {
+    if (typeof saveGame.gold !== "underfined") {
+      currentGoldVar = saveGame.gold;
+    }
+    if (typeof saveGame.damage !== "underfined") {
+      currentDMG = saveGame.damage;
+    }
+    if (typeof saveGame.dps !== "underfined") {
+      currentCPS = saveGame.dps;
+    }
+    if (typeof saveGame.creep !== "underfined") {
+      currentCreep = saveGame.creep;
+    }
+    if (typeof saveGame.items !== "underfined") {
+      items = saveGame.items;
+    }
+    if (typeof saveGame.weapons !== "underfined") {
+      weapons = saveGame.weapons;
+    }
+    console.log("save game loaded");
+  }
+}
+
+window.addEventListener("load", () => {
+  load();
+  loadCreep();
+  renderNextCreepCost();
+  renderCurrentCreepHP();
+  renderCurrentCPS();
+  renderCurrentDMG();
+  renderCurrentCreepBounty();
+  renderWeaponsOwned();
+  renderItemsOwned();
+  setInterval(() => {
+    creepClickCPS();
+  }, 500);
+});
+
+// setInterval(() => {
+//   localStorage.setItem("save", JSON.stringify(saveGameData));
+// }, 100000);

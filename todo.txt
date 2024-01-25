@@ -1,11 +1,12 @@
+1. add progress bar-like animation for next creep button (progress bar fill = current gold / cost)
+2. onclick animation
+3. save game functionality
+4. increment item/weapon cost with each purchase
 3. better UI for top-left stats
-5. add progress bar-like animation for next creep button (progress bar fill = current gold / cost)
 6. animated/functional clock
-8. onclick animation
-9. save game functionality
 11. upgrade for each weapon/item
-12. increment item/weapon cost with each purchase
-13. 
+
+13. animate popup
 14. 
 15. 
 
