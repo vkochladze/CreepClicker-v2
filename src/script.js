@@ -2,10 +2,12 @@ import { Creep } from "./creep.js";
 import { Weapon } from "./weapon.js";
 import { Item } from "./item.js";
 
+//globla vars
 let currentGoldVar = 0;
 let currentDMG = 1;
 let goldMultiplier = 1;
 let currentCPS = 0;
+let popupSeen = 0;
 
 //creepVars
 let currentCreepMaxHP;
@@ -23,6 +25,8 @@ let how_to_play_button = document.querySelector(".how__to__play__btn");
 let info_wrapper = document.querySelector(".info__wrapper");
 let saveBtn = document.querySelector(".save__btn");
 let deleteSaveBtn = document.querySelector(".delete__save__btn");
+let weaponCost = document.querySelectorAll(".weapon__cost");
+let itemCost = document.querySelectorAll(".item__cost");
 
 //display vars
 let currentGoldDisplay = document.querySelector(".current__gold");
@@ -232,31 +236,58 @@ function checkCreepArrayLimitReached() {
   }
 }
 
+// old next creep button background color function -- obsolete
+// function checkNextCreepBTNGold() {
+//   if (checkCreepArrayLimitReached() == false) {
+//     let nextCreepCost = creeps[currentCreep.creepID + 1].cost;
+
+//     if (currentGoldVar >= nextCreepCost) {
+//       loadNextCreepBTN.classList.remove("bg-gray-400");
+//       loadNextCreepBTN.classList.add("bg-red-400");
+//       loadNextCreepBTN.classList.add("hover:bg-red-500");
+//       loadNextCreepBTN.classList.add("active:bg-red-600");
+//     } else {
+//       loadNextCreepBTN.classList.remove("bg-red-400");
+//       loadNextCreepBTN.classList.remove("hover:bg-red-500");
+//       loadNextCreepBTN.classList.remove("active:bg-red-600");
+//       loadNextCreepBTN.classList.add("bg-gray-400");
+//     }
+//   } else {
+//     loadNextCreepBTN.classList.remove("bg-red-400");
+//     loadNextCreepBTN.classList.remove("hover:bg-red-500");
+//     loadNextCreepBTN.classList.remove("active:bg-red-600");
+//     loadNextCreepBTN.classList.add("bg-gray-400");
+//   }
+// }
+
 function checkNextCreepBTNGold() {
   if (checkCreepArrayLimitReached() == false) {
     let nextCreepCost = creeps[currentCreep.creepID + 1].cost;
 
-    if (currentGoldVar >= nextCreepCost) {
-      loadNextCreepBTN.classList.remove("bg-gray-400");
-      loadNextCreepBTN.classList.add("bg-red-400");
-      loadNextCreepBTN.classList.add("hover:bg-red-500");
-      loadNextCreepBTN.classList.add("active:bg-red-600");
-    } else {
-      loadNextCreepBTN.classList.remove("bg-red-400");
-      loadNextCreepBTN.classList.remove("hover:bg-red-500");
-      loadNextCreepBTN.classList.remove("active:bg-red-600");
-      loadNextCreepBTN.classList.add("bg-gray-400");
+    let currGoldNextCostRatio = (currentGoldVar / nextCreepCost) * 100;
+
+    if (prettify(currGoldNextCostRatio) >= 100) {
+      loadNextCreepBTN.style.background =
+        "linear-gradient(90deg, rgba(255,67,67,1) 101%, rgba(150,150,150,1) 100%)";
+      loadNextCreepBTN.style.scale = "105%";
+      loadNextCreepBTN.style.boxShadow = "#ff672b 0px 0px 75px";
+    } else if (prettify(currGoldNextCostRatio) <= 100) {
+      loadNextCreepBTN.style.background = `linear-gradient(90deg, rgba(255, 84, 84) ${currGoldNextCostRatio}%, rgba(150, 150, 150, 1) ${currGoldNextCostRatio}%)`;
+      loadNextCreepBTN.style.scale = "100%";
+      loadNextCreepBTN.style.boxShadow = "";
     }
-  } else {
-    loadNextCreepBTN.classList.remove("bg-red-400");
-    loadNextCreepBTN.classList.remove("hover:bg-red-500");
-    loadNextCreepBTN.classList.remove("active:bg-red-600");
-    loadNextCreepBTN.classList.add("bg-gray-400");
+
+    // else if (currGoldNextCostRatio <= 100) {
+    //   loadNextCreepBTN.style.background = `linear-gradient(90deg, rgba(255, 84, 84) 0%, rgba(150, 150, 150, 1) ${
+    //     currGoldNextCostRatio * 3
+    //   }%)`;
+    //   loadNextCreepBTN.style.scale = "100%";
+    //   loadNextCreepBTN.style.boxShadow = "";
   }
 }
 
 function renderCurrentGold() {
-  currentGoldDisplay.textContent = "Gold: " + currentGoldVar;
+  currentGoldDisplay.textContent = "Gold: " + prettify(currentGoldVar);
 }
 
 function renderCurrentCreepBounty() {
@@ -280,9 +311,12 @@ function buyWeapon(buttonValue) {
         currentDMG += weapons[i].damage;
 
         weapons[i].numberOwned++;
+        weapons[i].cost = prettify(weapons[i].cost * 1.2);
 
         renderCurrentGold();
         renderCurrentDMG();
+        renderWeaponsCost();
+        checkNextCreepBTNGold();
 
         console.log("bought " + weapons[i].name);
         return weapons[i];
@@ -301,10 +335,13 @@ function buyItem(buttonValue) {
         currentGoldVar = currentGoldVar - items[i].cost;
         currentCPS += items[i].cps;
 
+        items[i].numberOwned++;
+        items[i].cost = prettify(items[i].cost * 1.2);
+
         renderCurrentGold();
         renderCurrentCPS();
-
-        items[i].numberOwned++;
+        renderItemsCost();
+        checkNextCreepBTNGold();
 
         console.log("bought " + items[i].name);
         return items[i];
@@ -338,6 +375,20 @@ for (let i = 0; i < buyItemBTN.length; i++) {
   });
 }
 
+function renderItemsCost() {
+  for (let i = 0; i < items.length; i++) {
+    itemCost[i].textContent = `Cost: ${items[i].cost}G`;
+  }
+  console.log("updated item costs");
+}
+
+function renderWeaponsCost() {
+  for (let i = 0; i < weapons.length; i++) {
+    weaponCost[i].textContent = `Cost: ${weapons[i].cost}G`;
+  }
+  console.log("updated weapon costs");
+}
+
 function renderItemsOwned() {
   for (let i = 0; i < buyItemBTN.length; i++) {
     itemsOwned[i].textContent = items[i].numberOwned;
@@ -359,9 +410,14 @@ function displayPopup() {
   deleteSaveBtn.style.display = "none";
 }
 
-window.addEventListener("load", () => {
-  displayPopup();
-});
+function displayStatsIfNoPopup() {
+  if (popupSeen == 1) {
+    how_to_play_button.style.display = "block";
+    info_wrapper.style.display = "block";
+    saveBtn.style.display = "block";
+    deleteSaveBtn.style.display = "block";
+  }
+}
 
 popup__continue__button.addEventListener("click", () => {
   document.querySelector(".popup__darkener").style.display = "none";
@@ -370,6 +426,7 @@ popup__continue__button.addEventListener("click", () => {
   info_wrapper.style.display = "block";
   saveBtn.style.display = "block";
   deleteSaveBtn.style.display = "block";
+  popupSeen = 1;
 });
 
 how_to_play_button.addEventListener("click", () => {
@@ -399,11 +456,12 @@ function save() {
     creep: currentCreep,
     items: items,
     weapons: weapons,
+    popup: popupSeen,
   };
 
   localStorage.setItem("save", JSON.stringify(saveGameData));
 
-  console.log(saveGameData.value);
+  console.log(saveGameData);
 }
 
 function deleteSave() {
@@ -443,8 +501,20 @@ function load() {
     if (typeof saveGame.weapons !== "underfined") {
       weapons = saveGame.weapons;
     }
+    if (typeof saveGame.popup !== "underfined") {
+      popupSeen = saveGame.popup;
+    }
     console.log("save game loaded");
   }
+}
+
+function prettify(input) {
+  // var output = Math.round(input * 1000000) / 1000000;
+  // return output;
+  return (Math.floor(input * 1000) / 1000) // slice decimal digits after the 2nd one
+    .toFixed(2) // format with two decimal places
+    .substr(0, 4) // get the leading four characters
+    .replace(/\.$/, ""); // remove trailing decimal place separator
 }
 
 window.addEventListener("load", () => {
@@ -457,11 +527,22 @@ window.addEventListener("load", () => {
   renderCurrentCreepBounty();
   renderWeaponsOwned();
   renderItemsOwned();
+  // renderItemsCost();
+  // renderWeaponsCost();
+
+  if (popupSeen != 1) {
+    displayPopup();
+    popupSeen = 1;
+  } else {
+    displayStatsIfNoPopup();
+  }
+
   setInterval(() => {
     creepClickCPS();
   }, 500);
 });
 
+// autosave
 // setInterval(() => {
 //   localStorage.setItem("save", JSON.stringify(saveGameData));
 // }, 100000);
