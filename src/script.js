@@ -304,7 +304,7 @@ function renderCurrentDMG() {
 }
 
 function buyWeapon(buttonValue) {
-  for (let i = 0; i <= weapons.length; i++) {
+  for (let i = 0; i < weapons.length; i++) {
     if (weapons[i].weaponID == buttonValue) {
       if (currentGoldVar >= weapons[i].cost) {
         currentGoldVar = currentGoldVar - weapons[i].cost;
@@ -317,19 +317,18 @@ function buyWeapon(buttonValue) {
         renderCurrentDMG();
         renderWeaponsCost();
         checkNextCreepBTNGold();
+        renderWeaponsOwned();
 
         console.log("bought " + weapons[i].name);
-        return weapons[i];
       } else {
         console.error("not enough gold to buy " + weapons[i].name);
-        return weapons[i];
       }
     }
   }
 }
 
 function buyItem(buttonValue) {
-  for (let i = 0; i <= items.length; i++) {
+  for (let i = 0; i < items.length; i++) {
     if (items[i].itemID == buttonValue) {
       if (currentGoldVar >= items[i].cost) {
         currentGoldVar = currentGoldVar - items[i].cost;
@@ -342,12 +341,11 @@ function buyItem(buttonValue) {
         renderCurrentCPS();
         renderItemsCost();
         checkNextCreepBTNGold();
+        renderItemsOwned();
 
         console.log("bought " + items[i].name);
-        return items[i];
       } else {
         console.error("not enough gold to buy " + items[i].name);
-        return items[i];
       }
     }
   }
@@ -357,7 +355,7 @@ for (let i = 0; i < buyWeaponBTN.length; i++) {
   buyWeaponBTN[i].addEventListener("click", () => {
     let buttonValue = buyWeaponBTN[i].value;
 
-    weaponsOwned[i].textContent = weapons[i].numberOwned;
+    // weaponsOwned[i].textContent = weapons[i].numberOwned;
 
     console.log(buttonValue);
     buyWeapon(buttonValue);
@@ -368,7 +366,7 @@ for (let i = 0; i < buyItemBTN.length; i++) {
   buyItemBTN[i].addEventListener("click", () => {
     let buttonValue = buyItemBTN[i].value;
 
-    itemsOwned[i].textContent = items[i].numberOwned;
+    // itemsOwned[i].textContent = items[i].numberOwned;
 
     console.log(buttonValue);
     buyItem(buttonValue);
