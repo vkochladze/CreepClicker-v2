@@ -154,7 +154,7 @@ function creepClick() {
 
 function creepClickCPS() {
   if (currentCPS > 0) {
-    creepClick();
+    currentCreepHP -= currentCPS;
 
     if (currentCreepHP <= 0) {
       currentGoldVar = (currentGoldVar + currentCreep.bounty) * goldMultiplier;
