@@ -95,7 +95,7 @@ body {
     position: absolute;
     width: 50px;
     height: 50px;
-    top: 22%;
+    top: 190px;
     left: 54.5%;
     background: url("img/gold.png") no-repeat center center;
     background-size: cover;
@@ -108,7 +108,7 @@ body {
     position: absolute;
     width: 100px;
     height: 50px;
-    top: 25%;
+    top: 250px;
     left: 54%;
     z-index: 9999;
     pointer-events: none;

@@ -135,16 +135,7 @@ function creepClick() {
     currentGoldVar = (currentGoldVar + currentCreep.bounty) * goldMultiplier;
     currentCreepHP = currentCreep.maxHP;
 
-    const coinElement = document.createElement("div");
-    coinElement.className = "click__animation";
-    // coinElement.style.left = `${clickX}px`;
-    // coinElement.style.top = `${clickY}px`;
-    document.body.appendChild(coinElement);
-    coinElement.classList.add("click__animation_play");
-
-    setTimeout(() => {
-      coinElement.remove();
-    }, 500);
+    killAnimation();
   }
   renderCurrentCreepHP();
 
@@ -159,6 +150,7 @@ function creepClickCPS() {
     if (currentCreepHP <= 0) {
       currentGoldVar = (currentGoldVar + currentCreep.bounty) * goldMultiplier;
       currentCreepHP = currentCreep.maxHP;
+      killAnimation();
     }
 
     renderCurrentCreepHP();
@@ -185,6 +177,17 @@ function creepClickCPS() {
 
     console.log("clicked for: " + currentCPS + " damage");
   }
+}
+
+function killAnimation() {
+  const coinElement = document.createElement("div");
+  coinElement.className = "click__animation";
+  document.body.appendChild(coinElement);
+  coinElement.classList.add("click__animation_play");
+
+  setTimeout(() => {
+    coinElement.remove();
+  }, 500);
 }
 
 clickObj.addEventListener("click", (e) => {
