@@ -80,14 +80,6 @@ body {
     text-align: center;
 }
 
-.click__animation {
-    position: absolute;
-    left: 52%;
-    top: 15%;
-    opacity: 0;
-    /* animation: clickAnimation .2s forwards; */
-}
-
 .load__next__creep {
     padding: 15px;
     width: 25%;
@@ -98,34 +90,38 @@ body {
     transition: all .3s;
 }
 
+.click__animation {
+    display: none;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 25%;
+    left: 54%;
+    background: url("img/gold.png") no-repeat center center;
+    background-size: cover;
+    z-index: 9999;
+    pointer-events: none;
+    /* Make the coin element non-clickable */
+}
+
 
 .click__animation_play {
-    animation: clickAnimation .2s forwards;
+    display: block;
+    animation: clickAnimation 0.5s ease-out;
 }
+
 
 @keyframes clickAnimation {
     0% {
-        scale: 20%;
-        opacity: 0;
-        transform: translateY(-0%);
-    }
-
-    50% {
-        scale: 20%;
-        opacity: 0.8;
-        transform: translateY(-0%);
-    }
-
-    75% {
-        scale: 20%;
-        opacity: 0.8;
-        transform: translateY(-30%);
+        transform: translateY(0);
+        scale: 0;
+        opacity: 1;
     }
 
     100% {
-        scale: 20%;
+        transform: translateY(-50px);
+        scale: 1;
         opacity: 0;
-        transform: translateY(-100%);
     }
 }
 

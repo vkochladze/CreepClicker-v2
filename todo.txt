@@ -3,6 +3,7 @@
 3. animated/functional clock
 4. upgrade for each weapon/item
 5. animate popup
+6. dark light mode
 
 //done
 1. add item functionality (CPS) // done
