@@ -134,20 +134,27 @@ function creepClick() {
   if (currentCreepHP <= 0) {
     currentGoldVar = (currentGoldVar + currentCreep.bounty) * goldMultiplier;
     currentCreepHP = currentCreep.maxHP;
+
+    const coinElement = document.createElement("div");
+    coinElement.className = "click__animation";
+    // coinElement.style.left = `${clickX}px`;
+    // coinElement.style.top = `${clickY}px`;
+    document.body.appendChild(coinElement);
+    coinElement.classList.add("click__animation_play");
+
+    setTimeout(() => {
+      coinElement.remove();
+    }, 500);
   }
   renderCurrentCreepHP();
 
   renderCurrentGold();
-  //   clickAnimation.classList.add("click_animation_play");
-  // clickAnimation.style.animation = "";
-  // clickAnimation.offsetWidth;
-  // clickAnimation.style.animation = "clickAnimation .2s forwards";
   checkNextCreepBTNGold();
 }
 
 function creepClickCPS() {
   if (currentCPS > 0) {
-    currentCreepHP -= currentCPS;
+    creepClick();
 
     if (currentCreepHP <= 0) {
       currentGoldVar = (currentGoldVar + currentCreep.bounty) * goldMultiplier;
@@ -156,25 +163,45 @@ function creepClickCPS() {
 
     renderCurrentCreepHP();
     renderCurrentGold();
-    // clickAnimation.style.animation = "";
-    // clickAnimation.offsetWidth;
-    // clickAnimation.style.animation = "clickAnimation .2s forwards";
 
-    const coinElement = document.createElement("div");
-    coinElement.className = "click__animation";
-    document.body.appendChild(coinElement);
-    coinElement.classList.add("click__animation_play");
+    const damageAnimationText = document.createElement("p");
+
+    damageAnimationText.className = "click__animation__text";
+    document.body.appendChild(damageAnimationText);
+    damageAnimationText.textContent = `-${currentCPS} damage`;
+    damageAnimationText.classList.add("click__animation_play_text");
+
+    clickObj.classList.add("DPSAnimation");
 
     setTimeout(() => {
-      coinElement.remove();
-    }, 500);
+      clickObj.classList.remove("DPSAnimation");
+    }, 300);
+
+    setTimeout(() => {
+      damageAnimationText.remove();
+    }, 800);
+
     checkNextCreepBTNGold();
 
     console.log("clicked for: " + currentCPS + " damage");
   }
 }
 
-clickObj.addEventListener("click", () => {
+clickObj.addEventListener("click", (e) => {
+  const clickX = e.pageX - 25;
+  const clickY = e.pageY - 25;
+
+  const damageAnimationText = document.createElement("p");
+  damageAnimationText.className = "click__animation__text";
+  damageAnimationText.style.left = `${clickX}px`;
+  damageAnimationText.style.top = `${clickY}px`;
+  damageAnimationText.textContent = `-${currentDMG} damage`;
+  document.body.appendChild(damageAnimationText);
+  damageAnimationText.classList.add("click__animation_play_text");
+
+  setTimeout(() => {
+    damageAnimationText.remove();
+  }, 500);
   creepClick();
 });
 
@@ -438,50 +465,6 @@ popup__continue__button.addEventListener("click", () => {
 how_to_play_button.addEventListener("click", () => {
   displayPopup();
 });
-
-clickObj.addEventListener("click", (e) => {
-  // let mouseX = e.pageX - 25;
-  // let mouseY = e.pageY - 25;
-  // let mousePointer = document.querySelector(".tap-circle");
-
-  // mousePointer.style.left = mouseX + "px";
-  // mousePointer.style.top = mouseY + "px";
-
-  // mousePointer.classList.add("click-animation");
-
-  // setTimeout(() => {
-  //   mousePointer.classList.remove("click-animation");
-  // }, 300);
-
-  const clickX = e.pageX - 25;
-  const clickY = e.pageY - 25;
-
-  const coinElement = document.createElement("div");
-  coinElement.className = "click__animation";
-  coinElement.style.left = `${clickX}px`;
-  coinElement.style.top = `${clickY}px`;
-
-  document.body.appendChild(coinElement);
-
-  coinElement.classList.add("click__animation_play");
-
-  setTimeout(() => {
-    coinElement.remove();
-  }, 500);
-});
-
-function autoClickAnimation() {
-  setTimeout(() => {
-    const coinElement = document.createElement("div");
-    coinElement.className = "click__animation";
-    document.body.appendChild(coinElement);
-    coinElement.classList.add("click__animation_play");
-  }, -currentCPS * 100);
-
-  setTimeout(() => {
-    coinElement.remove();
-  }, 500);
-}
 
 function save() {
   let saveGameData = {

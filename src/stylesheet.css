@@ -95,23 +95,43 @@ body {
     position: absolute;
     width: 50px;
     height: 50px;
-    top: 25%;
-    left: 54%;
+    top: 22%;
+    left: 54.5%;
     background: url("img/gold.png") no-repeat center center;
     background-size: cover;
     z-index: 9999;
     pointer-events: none;
-    /* Make the coin element non-clickable */
+}
+
+.click__animation__text {
+    display: none;
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    top: 25%;
+    left: 54%;
+    z-index: 9999;
+    pointer-events: none;
+    color: red;
+    font-family: Inter;
 }
 
 
 .click__animation_play {
     display: block;
-    animation: clickAnimation 0.5s ease-out;
+    animation: clickAnimation .5s ease-in-out;
 }
 
+.click__animation_play_text {
+    display: block;
+    animation: clickAnimationText 2s ease-out;
+}
 
-@keyframes clickAnimation {
+.DPSAnimation {
+    animation: DPSAnimation .3s ease-out;
+}
+
+/* @keyframes clickAnimation {
     0% {
         transform: translateY(0);
         scale: 0;
@@ -122,6 +142,71 @@ body {
         transform: translateY(-50px);
         scale: 1;
         opacity: 0;
+    }
+} */
+
+@keyframes clickAnimation {
+    0% {
+        transform: translateY(0);
+        scale: 0.5;
+        opacity: 0;
+    }
+
+    25% {
+        transform: translateY(-50px);
+        opacity: .7;
+    }
+
+    50% {
+        transform: translateY(-50px);
+        opacity: .7;
+    }
+
+    60% {
+        transform: translateY(-50px);
+        opacity: .7;
+    }
+
+    70% {
+        transform: translateY(-50px);
+        opacity: .5;
+    }
+
+    80% {
+        transform: translateY(-75px);
+        opacity: .3;
+    }
+
+    100% {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+}
+
+
+
+@keyframes clickAnimationText {
+    0% {
+        transform: translateY(0);
+        scale: 1;
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-50px);
+        scale: 1;
+        opacity: 0;
+    }
+}
+
+@keyframes DPSAnimation {
+    0% {
+        scale: 95%;
+    }
+
+    100% {
+        scale: 100%;
+
     }
 }
 
